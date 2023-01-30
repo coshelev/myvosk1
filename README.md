@@ -1,0 +1,2 @@
+# myvosk1
+Vosk
