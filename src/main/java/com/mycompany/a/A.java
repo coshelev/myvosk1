@@ -17,10 +17,25 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.File;
 
+import java.net.URI;
+import java.net.http.*;
+import com.google.gson.*;
+import java.util.*;
+
 public class A {
 
     public static void main(String[] argv) throws IOException, UnsupportedAudioFileException {
         LibVosk.setLogLevel(LogLevel.DEBUG);
+
+
+	Gson gson= new Gson();
+        Map<String, String> inputMap = new HashMap<String, String>();
+        inputMap.put("type",          "vosk");
+        inputMap.put("signature",     "");
+        inputMap.put("text",   	"");
+        String requestBody = gson.toJson(inputMap);
+
+	var client = HttpClient.newHttpClient();
 
 	 try (Model model = new Model("/home/coshelev/vosk/vosk-model-small-ru-0.22");
                  Recognizer recognizer = new Recognizer(model, 16000)) {
@@ -33,7 +48,7 @@ public class A {
 					continue;
 				String inputFile = list[i];
 				System.out.println("**");
-				System.out.println(list[i]);
+				System.out.println(inputFile);
 
 				System.out.println("*****");			
 			
@@ -59,6 +74,18 @@ public class A {
     				PrintWriter printWriter = new PrintWriter(fileWriter);
     				printWriter.print(fR);
     				printWriter.close();
+
+               			inputMap.put("signature",  	outputFile);
+               			inputMap.put("text",   		fR);
+               			requestBody = gson.toJson(inputMap);
+
+               			var request = HttpRequest.newBuilder()
+                  		.uri(URI.create("http://mainappl.main.luidorauto.ru/sys_agr/hs/webhooks/anypost/v1"))
+                  		.POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                  		.header("accept", "application/json") 
+                  		.build();
+              
+               			client.sendAsync(request,HttpResponse.BodyHandlers.ofString());
 			};//for
 	
         }
