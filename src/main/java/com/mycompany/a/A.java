@@ -37,7 +37,8 @@ public class A {
 
 	var client = HttpClient.newHttpClient();
 
-	 try (Model model = new Model("/home/coshelev/vosk/vosk-model-small-ru-0.22");
+	 //try (Model model = new Model("/home/coshelev/vosk/vosk-model-small-ru-0.22");
+	try (Model model = new Model("/home/coshelev/vosk/vosk-model-ru-0.22");
                  Recognizer recognizer = new Recognizer(model, 16000)) {
 		
 			File f = new File("/home/coshelev/vosk/");
@@ -75,12 +76,13 @@ public class A {
     				printWriter.print(fR);
     				printWriter.close();
 
+ 				inputMap.put("phone",           "vosk");
                			inputMap.put("signature",  	outputFile);
-               			inputMap.put("text",   		fR);
+ 				inputMap.put("extra",           fR);
                			requestBody = gson.toJson(inputMap);
 
                			var request = HttpRequest.newBuilder()
-				.uri(URI.create("http://motor-luidor.ru/leads/anypost/anypost.php"))
+				.uri(URI.create("https://motor-luidor.ru/leads/chery-mworx/chery.php"))
                   		.POST(HttpRequest.BodyPublishers.ofString(requestBody))
                   		.header("accept", "application/json") 
                   		.build();
