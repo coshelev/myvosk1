@@ -80,7 +80,7 @@ public class A {
                			requestBody = gson.toJson(inputMap);
 
                			var request = HttpRequest.newBuilder()
-				.uri(URI.create("https://motor-luidor.ru/leads/anypost/anypost.php"))
+				.uri(URI.create("http://motor-luidor.ru/leads/anypost/anypost.php"))
                   		.POST(HttpRequest.BodyPublishers.ofString(requestBody))
                   		.header("accept", "application/json") 
                   		.build();
