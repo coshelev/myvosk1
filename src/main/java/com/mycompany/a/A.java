@@ -37,6 +37,9 @@ public class A {
 
 	var client = HttpClient.newHttpClient();
 
+	//for (int i = 0; i < list.length; i++){
+	//};
+
 	 //try (Model model = new Model("/home/coshelev/vosk/vosk-model-small-ru-0.22");
 	try (Model model = new Model("/home/coshelev/vosk/vosk-model-ru-0.22");
                  Recognizer recognizer = new Recognizer(model, 16000)) {
