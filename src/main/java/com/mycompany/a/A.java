@@ -42,8 +42,9 @@ public class A {
 	//split file
 	WaveFileSplit();
 
-	try (Model model = new Model("/home/coshelev/vosk/vosk-model-small-ru-0.22");
-	//try (Model model = new Model("/home/coshelev/vosk/vosk-model-ru-0.22");
+	try (Model model = new Model("/home/coshelev/vosk/model-ru");					//small model for android
+	//try (Model model = new Model("/home/coshelev/vosk/vosk-model-small-ru-0.22");	//small model
+	//try (Model model = new Model("/home/coshelev/vosk/vosk-model-ru-0.22"); 		//large model
                  Recognizer recognizer = new Recognizer(model, 16000)) {
 		
 			File f = new File("/home/coshelev/vosk/");
